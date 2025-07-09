@@ -1,22 +1,40 @@
 public class Stack extends DynamicArray implements Comparable<Stack>, Xifo<String>, Lifo<String> {
 
-    public int compareTo(Stack other) {
-        return -1234;
-    } // method compareTo
+    public void push(String e) {
+        // Push to the front: shift everything to the right
+        if (getOccupancy() == this.underlying.length) {
+            this.resize();
+        }
+        for (int i = getOccupancy(); i > 0; i--) {
+            this.underlying[i] = this.underlying[i - 1];
+        }
+        this.underlying[0] = e;
+        this.occupancy++;
+    } // method push
 
     public String peek() {
-        return null;
+        // Return the first element without removing it
+        if (getOccupancy() == 0) {
+            return null;
+        }
+        return this.underlying[0];
     } // method peek
 
     public String pop() {
-        return null;
+        // Remove and return the first element
+        if (getOccupancy() == 0) {
+            return null;
+        }
+        return this.remove(0);
     } // method pop
 
     public String toString() {
-        return null;
+        return "Stack contents: " + super.toString();
     } // method toString
 
-    public void push(String e) {
-    } // method push
+    public int compareTo(Stack other) {
+        // Compare based on occupancy (size of the stack)
+        return this.getOccupancy() - other.getOccupancy();
+    } // method compareTo
 
 } // class Stack
